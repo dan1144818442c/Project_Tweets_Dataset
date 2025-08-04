@@ -1,7 +1,7 @@
 import pandas as pd
 class Data_investigation:
-    def __init__(self):
-        self.df = pd.read_csv(r"C:\Users\1\Desktop\DATA_Analiza\project_tweets_dataset\data\tweets_dataset.csv")
+    def __init__(self , df):
+        self.df = df
         self.df_antisemitic = self.df[self.df['Biased'] ==  1]
         self.df_non_antisemitic = self.df[self.df['Biased'] ==  0]
         self.add_column_len_text()
@@ -9,7 +9,7 @@ class Data_investigation:
 
 
     def count_from_category(self  , name_category = 'Biased'):
-        return self.df[name_category].value_counts()
+        return self.df[name_category].value_counts().to_dict()
 
     def add_column_Number_of_words(self, column_name = 'Text'):
         self.df['Number_of_words']  =self.df[column_name].transform(lambda x : len(x.strip().split(" ")) )
@@ -39,7 +39,6 @@ class Data_investigation:
         return res
 
     def get_all_word(self ):
-        # all_word = self.df['Text'].
         all_word = self.df["Text"].values
         return list(all_word)
 
@@ -56,9 +55,7 @@ class Data_investigation:
 
     def get_most_popular_word(self , num = 10):
         dic_count_word = self.get_dic_count_word()
-        lst_most_popular_word = []
         top_num_val = sorted(dic_count_word.items(), reverse=True, key=lambda x: x[1])[:num]
-        # print(top_num_val)
         return [x[0] for x in top_num_val]
 
     def get_all_word_by_df(self , df , column_name = 'Text'):
@@ -75,26 +72,35 @@ class Data_investigation:
                     counter_uppercase+=1
         return counter_uppercase
 
+    def get_resulot_json(self):
+        dic_caount = self.count_from_category()
+        dic_average = self.evrage_words_tweest()
+        dic_longest_tweest = self.longest_3_tweets()
+        dic = {"total_tweets" :{"antisemitic": dic_caount[1], "non_antisemitic": dic_caount[0],
+                "total": dic_caount[0] + dic_caount[1] } ,
+            "average_length": {
+                "antisemitic": dic_average["average_df_antisemitic"],
+                "non_antisemitic": dic_average["average_df_non_antisemitic"],
+                "total": dic_average["total"]
+            },
+           "common_words": {
+               "total": self.get_most_popular_word(num=10)
+           } ,
+            "longest_3_tweets" :{"antisemitic" : dic_longest_tweest["antisemitic"] , 'non_antisemitic' : dic_longest_tweest['non_antisemitic']} ,
+            'uppercase_words' : {"antisemitic" : self.get_num__word_uppercase(self.df_antisemitic) , "non_antisemitic" : self.get_num__word_uppercase(self.df_non_antisemitic) , "total" : self.get_num__word_uppercase(self.df)}
+           }
+        return dic
 
-    
-a = Data_investigation()
-df = a.df
 
+#
+a = Data_investigation(pd.read_csv(r"../data/tweets_dataset.csv"))
 
-print(df.columns)
-print(len(df))
-print(df.dtypes)
-# print(df["Biased"])
-print()
-print()
-print()
-print()
 print(a.count_from_category())
 print("Aaa")
 print("Aa")
 print(a.evrage_words_tweest())
 print("!!!!!!!!111")
-# print(a.longest_3_tweets()["non_antisemitic"][0])
+# print(a.longest_3_tweets()["antisemitic"][0])
 # print(df['Text'][6870])
 
 # print(a.get_dic_count_word())
@@ -110,7 +116,8 @@ print("!!!!!!!!111")
 # print(list(prices.values()) )
 # print(b)
 
-print(a.get_most_popular_word())
-print(a.get_num__word_uppercase(a.df_antisemitic))
-print(a.get_num__word_uppercase(a.df_non_antisemitic))
-print(a.get_num__word_uppercase(a.df))
+# print(a.get_most_popular_word())
+# print(a.get_num__word_uppercase(a.df_antisemitic))
+# print(a.get_num__word_uppercase(a.df_non_antisemitic))
+# print(a.get_num__word_uppercase(a.df))
+print(a.get_resulot_json())
