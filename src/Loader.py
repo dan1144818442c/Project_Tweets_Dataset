@@ -7,11 +7,11 @@ class loader:
         return pd.read_csv(path)
 
     @staticmethod
-    def write_to_csv(path , df ):
+    def write_to_csv(path , df ): ## loader to CSV
         with open(path , "w") as f:
             df.to_csv(path)
 
     @staticmethod
-    def write_to_json(path , json_ ):
+    def write_to_json(path , json_ ):## loader to json
         with open(path , "w") as f:
             json.dump(json_  ,f)

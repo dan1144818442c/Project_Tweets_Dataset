@@ -8,21 +8,20 @@ class Data_investigation:
         self.add_column_Number_of_words()
 
 
-    def count_from_category(self  , name_category = 'Biased'):
+    def count_from_category(self  , name_category = 'Biased'): ## count nom of all category  , return dict
         return self.df[name_category].value_counts().to_dict()
 
-    def add_column_Number_of_words(self, column_name = 'Text'):
+    def add_column_Number_of_words(self, column_name = 'Text'): ## add column name - Number_of_words that count the number of word in every column
         self.df['Number_of_words']  =self.df[column_name].transform(lambda x : len(x.strip().split(" ")) )
         self.df_antisemitic = self.df[self.df['Biased'] == 1]
         self.df_non_antisemitic = self.df[self.df['Biased'] == 0]
 
-    def add_column_len_text(self, column_name = 'Text'):
+    def add_column_len_text(self, column_name = 'Text'):## add column name - len_text that count the len  of text  in every column
         self.df['len_text'] = self.df[column_name].transform(lambda x : len(x) )
         self.df_antisemitic = self.df[self.df['Biased'] == 1]
         self.df_non_antisemitic = self.df[self.df['Biased'] == 0]
 
-    def evrage_words_tweest(self ):
-
+    def evrage_words_tweest(self ):## return dic of everage of all tweets by Biased
         average_all = self.df['Number_of_words'].mean()
         average_df_antisemitic = self.df_antisemitic['Number_of_words'].mean()
         average_df_non_antisemitic = self.df_non_antisemitic['Number_of_words'].mean()
