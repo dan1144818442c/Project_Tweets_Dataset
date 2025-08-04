@@ -38,7 +38,7 @@ class Data_investigation:
         res = {"antisemitic" : longest_3_tweets_antisemitic , "non_antisemitic" : longest_3_tweets_non_antisemitic}
         return res
 
-    def get_all_word(self):
+    def get_all_word(self ):
         # all_word = self.df['Text'].
         all_word = self.df["Text"].values
         return list(all_word)
@@ -56,14 +56,27 @@ class Data_investigation:
 
     def get_most_popular_word(self , num = 10):
         dic_count_word = self.get_dic_count_word()
-        top_num_val = sorted(dic_count_word.values() ,reverse=True)[:num]
         lst_most_popular_word = []
-        for 
-        print(top_num_val)
+        top_num_val = sorted(dic_count_word.items(), reverse=True, key=lambda x: x[1])[:num]
+        # print(top_num_val)
+        return [x[0] for x in top_num_val]
+
+    def get_all_word_by_df(self , df , column_name = 'Text'):
+        all_word = df[column_name].values
+        return list(all_word)
+
+    def get_num__word_uppercase(self , df , column_name = 'Text'):
+        all_word = self.get_all_word_by_df(df , column_name)
+        counter_uppercase = 0
+        for sent in all_word:
+            lst = sent.strip().split()
+            for word in lst:
+                if word.isupper():
+                    counter_uppercase+=1
+        return counter_uppercase
 
 
-
-
+    
 a = Data_investigation()
 df = a.df
 
@@ -96,4 +109,8 @@ print("!!!!!!!!111")
 # b =sorted(a , reverse=True)
 # print(list(prices.values()) )
 # print(b)
-a.get_most_popular_word()
+
+print(a.get_most_popular_word())
+print(a.get_num__word_uppercase(a.df_antisemitic))
+print(a.get_num__word_uppercase(a.df_non_antisemitic))
+print(a.get_num__word_uppercase(a.df))
