@@ -92,32 +92,32 @@ class Data_investigation:
         return dic
 
 
+# #
+# a = Data_investigation(pd.read_csv(r"../data/tweets_dataset.csv"))
 #
-a = Data_investigation(pd.read_csv(r"../data/tweets_dataset.csv"))
-
-print(a.count_from_category())
-print("Aaa")
-print("Aa")
-print(a.evrage_words_tweest())
-print("!!!!!!!!111")
-# print(a.longest_3_tweets()["antisemitic"][0])
-# print(df['Text'][6870])
-
-# print(a.get_dic_count_word())
-# prices = {
-#     "banana": 1.20,
-#     "pineapple": 0.89,
-#    "apple": 1.57,
-#    "grape": 2.45,
-#  }
+# print(a.count_from_category())
+# print("Aaa")
+# print("Aa")
+# print(a.evrage_words_tweest())
+# print("!!!!!!!!111")
+# # print(a.longest_3_tweets()["antisemitic"][0])
+# # print(df['Text'][6870])
 #
-# a= list(prices.values())
-# b =sorted(a , reverse=True)
-# print(list(prices.values()) )
-# print(b)
-
-# print(a.get_most_popular_word())
-# print(a.get_num__word_uppercase(a.df_antisemitic))
-# print(a.get_num__word_uppercase(a.df_non_antisemitic))
-# print(a.get_num__word_uppercase(a.df))
-print(a.get_resulot_json())
+# # print(a.get_dic_count_word())
+# # prices = {
+# #     "banana": 1.20,
+# #     "pineapple": 0.89,
+# #    "apple": 1.57,
+# #    "grape": 2.45,
+# #  }
+# #
+# # a= list(prices.values())
+# # b =sorted(a , reverse=True)
+# # print(list(prices.values()) )
+# # print(b)
+#
+# # print(a.get_most_popular_word())
+# # print(a.get_num__word_uppercase(a.df_antisemitic))
+# # print(a.get_num__word_uppercase(a.df_non_antisemitic))
+# # print(a.get_num__word_uppercase(a.df))
+# print(a.get_resulot_json())

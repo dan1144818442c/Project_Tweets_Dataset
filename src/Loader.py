@@ -10,6 +10,7 @@ class loader:
     def write_to_csv(path , df ):
         with open(path , "w") as f:
             df.to_csv(path)
+
     @staticmethod
     def write_to_json(path , json_ ):
         with open(path , "w") as f:
